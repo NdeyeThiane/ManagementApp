@@ -3,8 +3,8 @@
 
 MVP: Cohort Management App
 1. Elevator Pitch (One sentence)
-"A cohort management app where Admins can manage cohorts, assign instructors and mentors, and oversee student progress, while instructors and mentors have role-specific access to resources and students."
-2. MVP Features
+A cohort management app where Admins can manage cohorts, assign instructors and mentors, and oversee student progress, while instructors and mentors have role-specific access to resources and students.
+Features:
 Admin Role:
 Cohort Management:
 Create, edit, and delete cohorts.
