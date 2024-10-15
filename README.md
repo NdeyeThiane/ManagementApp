@@ -2,9 +2,10 @@
 
 
 MVP: Cohort Management App
-1. Elevator Pitch (One sentence)
+1. Elevator Pitch:
 A cohort management app where Admins can manage cohorts, assign instructors and mentors, and oversee student progress, while instructors and mentors have role-specific access to resources and students.
-Features:
+Features
+
 Admin Role:
 Cohort Management:
 Create, edit, and delete cohorts.
@@ -13,19 +14,17 @@ Manage cohort-specific access codes.
 User Management:
 Add and manage users (students, instructors, mentors).
 Assign users to cohorts based on their role.
+
 Dashboard:
 Overview of all cohorts, users, and their status.
 Instructor Role:
 Access to Cohort Pages:
 View cohort-specific tasks and student information.
+
 Student Management:
 View and track student progress.
 Leave feedback on student tasks or activities.
-Mentor Role:
-Access to Resources:
-View cohort resources and learning materials.
-Student Information:
-Access to student information for guidance but no editing privileges.
+
 3. User Flow:
 Admin:
 Log in → Dashboard.
@@ -60,13 +59,14 @@ Instructors can view student progress and provide feedback.
 Mentors can access resources and student information.
 6. Nice-to-Have Features (For Future Versions)
 Real-time collaboration (retrospectives, checklists).
+Mentor Role
 Notification system for task deadlines.
 Advanced student analytics and reporting.
 File uploads for cohort-specific resources.
 Technical Risks:
 Real-time data syncing across users (e.g., potential WebSocket issues).
 Secure file uploads and permissions management
-7. MVP Diagram
+8. MVP Diagram
 Admin: Full access to manage cohorts, users, and access codes.
 Instructor: Can view student progress and leave feedback.
 Mentor: Can view resources and student info for guidance.
