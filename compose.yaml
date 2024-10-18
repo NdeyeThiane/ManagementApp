@@ -1,0 +1,64 @@
+services:
+
+
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment: 
+      - POSTGRES_PASSWORD=dbPassword
+      - POSTGRES_USER=dbUser
+      - POSTGRES_DATABASE=db
+    volumes:
+      - managementapp:/data/db
+
+
+  client:
+    depends_on: 
+      - server
+    build: ./client
+    ports:
+      - 5173:5173
+    environment:
+      VITE_URL: http://localhost:8000
+    develop:
+      watch:
+        - path: ./client/package.json
+          action: rebuild
+        - path: ./client/package-lock.json
+          action: rebuild
+        - path: ./client
+          target: /app
+          action: sync
+
+      
+
+  server:
+    depends_on:
+      - db
+    build: ./server
+    ports:
+      - 3000:3000
+    environment: 
+      - DBUSER=dbUser
+      - DBHOST=dbHost
+      - DB=db
+      - DBPASSWORD=dbPassword
+      - DBPORT=dbPort
+
+      
+    develop:
+      watch:
+        - path: ./server/package.json
+          action: rebuild
+        - path: ./server/package-lock.json
+          action: rebuild
+        - path: ./server
+          target: /app
+          action: sync
+
+
+
+
+volumes:
+  managementapp:
