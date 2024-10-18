@@ -4,43 +4,38 @@ services:
   db:
     image: postgres
     ports:
-      - 5432:5432
-    environment: 
-      - POSTGRES_PASSWORD=dbPassword
-      - POSTGRES_USER=dbUser
-      - POSTGRES_DB=db
-    volumes:
-      - managementapp:/data/db
-
-  client:
-    depends_on: 
-      - server
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-    ports:
-      - 5173:5173
+      - "5432:5432"
     environment:
-      - VITE_URL=http://localhost:8000
+      POSTGRES_USER: dbUser
+      POSTGRES_PASSWORD: dbPassword
+      POSTGRES_DB: db
     volumes:
-      - ./client:/app
+      - postgres_data:/var/lib/postgresql/data
 
+  
   server:
-    depends_on:
-      - db
     build:
       context: ./server
       dockerfile: Dockerfile
     ports:
-      - 3000:3000
-    environment: 
-      - DBUSER=dbUser
-      - DBHOST=db 
-      - DB=db
-      - DBPASSWORD=dbPassword
-      - DBPORT=5432
-    volumes:
-      - ./server:/app
+      - "3000:3000"
+    environment:
+      DB_USER: dbUser
+      DB_PASSWORD: dbPassword
+      DB_HOST: dbHost
+      DB_DATABASE: db
+    depends_on:
+      - db
+
+ 
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - server
 
 volumes:
-  managementapp:
+  postgres_data:
