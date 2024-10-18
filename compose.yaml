@@ -16,7 +16,9 @@ services:
   client:
     depends_on: 
       - server
-    build: ./client
+    build:
+      dockerfile: Dockerfile
+      context: ./client
     ports:
       - 5173:5173
     environment:
@@ -36,7 +38,11 @@ services:
   server:
     depends_on:
       - db
-    build: ./server
+    build:
+      dockerfile: Dockerfile
+      context: ./server
+
+
     ports:
       - 3000:3000
     environment: 
