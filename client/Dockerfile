@@ -1,9 +1,10 @@
 FROM node:22-alpine
 WORKDIR /app
-COPY package*.json ./
+COPY package.json package-lock.json ./
 RUN npm install
 COPY  . .
 RUN npm run build
 RUN npm install -g serve
 EXPOSE 5173
-CMD server -s build
+# CMD server -s build
+CMD npm run dev 
