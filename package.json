@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "rollup": "^2.60.0"
+  },
+  "dependencies": {
+    "react-router-dom": "^6.27.0"
   }
 }
