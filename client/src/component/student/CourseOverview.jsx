@@ -1,4 +1,6 @@
-import React from 'react'
+import {useEffect, useState} from 'react'
+import ModuleCard from './ModuleCard';
+
 
 const CourseOverview = () => {
   const [courses, setCourses] = useState([]);
@@ -11,14 +13,14 @@ const CourseOverview = () => {
   }, []); 
 
   return (
-    <div>CourseOverview
-      <ul>
-        {courses.map((course) => (
-          <li key={course.id}>
-            {course.title} - {course.description}
-          </li>
-        ))}
-      </ul>
+    <div>
+      {
+        courses.map((course) =>{
+          return <ModuleCard key={course.id} courseInfo={course}></ModuleCard>
+        })
+      }
+  
+
     </div>
   )
 }

@@ -1,41 +1,17 @@
 #root {
-  --background: hsl(0, 0%, 100%);
-  --foreground: #2d7ded;
-  color: #010a15;
-}
-
-*{
+  width: 100vw;
+  height: 100vh;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  color: #071a34;
-}
+  overflow-x: hidden;
+ }
+ 
+ 
+ /* *{
+  margin: 0;
+  padding: 0;
+ }
 
-a {
-  text-decoration: none;
-}
-
-ul {
-  text-decoration: none;
-}
-
-.container {
-  width: 100 vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: row;
-}
-
-.leftsidebar {
-  flex: 1;
-  /* border-color: solid white; */
-  background-color: rgb(46, 153, 224);
-  border-radius: 4px;
-}
-
-
-.content {
-  flex: 6;
-  border-radius: 4px;
-
-}
+ button {
+  background-color: aqua;
+ } */

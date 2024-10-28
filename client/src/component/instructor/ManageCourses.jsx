@@ -1,9 +1,34 @@
 import React from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import { addCourse, deleteCourse} from '../../app/features/course/courseSlice'
 
-const ManageCourses = () => {
+const GetCourse = () => {
   return (
-    <div>ManageCourses</div>
+    <div>GetCourse</div>
   )
 }
 
-export default ManageCourses
+export default GetCourse
+
+
+
+export const DelCourse = () => {
+  return (
+    <div>DelCourse</div>
+  )
+}
+
+
+
+export const EditCourse = () => {
+  return (
+    <div>EditACourse</div>
+  )
+}
+
+
+export const AddCourse = () => {
+  return (
+    <div>AddACourse</div>
+  )
+}

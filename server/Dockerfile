@@ -1,8 +1,8 @@
 FROM node:22-alpine
-WORKDIR /app
-COPY package*.json ./
+WORKDIR /
+COPY package*.json  ./
 RUN npm cache clean --force
-RUN npm install
+RUN npm install -g
 COPY . .
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]

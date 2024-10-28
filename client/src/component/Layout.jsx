@@ -1,45 +1,32 @@
 import React from 'react'
-import { Link, Route, Routes } from 'react-router-dom'
-import Dashboard from './dashboard/Dashboard';
-import Courses from './dashboard/Courses';
-import Calendar from './dashboard/Calendar';
-import Resources from './dashboard/Resources';
-import Retro from './dashboard/Retro';
+import { NavLink, Outlet} from 'react-router-dom'
+
 import '../App.css'
 
 const Layout = () => {
   return (
-    <>
-      
-       <header>
-        <ul>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-          <li>
-            <Link to="/courses">Course</Link>
-          </li>
-          <li>
-            <Link to="/calendar">Calendar</Link>
-          </li>
-          <li>
-            <Link to="/retro">Retro</Link>
-          </li>
-          <li>
-            <Link to="/resources">Resources</Link>
-          </li>
-        </ul>
-      </header>
-          
-          <Routes>
-            <Route path="/dashboard" elemenent={<Dashboard />} />
-            <Route path="/courses" elemenent={<Courses />} />
-            <Route path="/calendar" elemenent={<Calendar />} />
-            <Route path="/retro" elemenent={<Retro />} />
-            <Route path="/resources" elemenent={<Resources />} />
-          </Routes>
+    <div className="w-screen h-screen m-2 bg-white grid sm:grid-cols-8 sm:grid-rows-10 gap-2">
+      <div className="border-2 sm:col-span-8 sm:row-span-1">
 
-    </>
+      </div>
+      <div className="bg-blue-400 sm:col-span-1 sm:row-span-12" >
+      <nav className="grid">
+        <NavLink to="/">Dashboard</NavLink>
+        <NavLink to="/courses">Modules</NavLink>
+        <NavLink to="/calendar">Calendar</NavLink>
+        <NavLink to="/retro">Retro</NavLink>
+        <NavLink to="/resources">Resources</NavLink>
+        <NavLink to='/createmodule'>Create Module</NavLink>
+        <NavLink to='/courses/:id'></NavLink>
+      </nav>
+      </div>
+      
+      <main className="border-2 sm:col-span-7 sm:row-span-12">
+        <Outlet />
+      </main> 
+      
+   </div>
+    
   );
 }
 
