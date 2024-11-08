@@ -3,7 +3,7 @@ services:
     name: server
     env: node
     plan: starter 
-    buildCommand: "npm install && npm start" 
+    buildCommand: "npm install && npm run start" 
     startCommand: "npm run dev"
     envVars:
       - key: DATABASE_URL
@@ -16,6 +16,7 @@ services:
     healthCheckPath: "/health" 
     branch: main 
 
+<<<<<<< HEAD:server/render.yaml
   # - type: static
   #   name: frontend
   #   plan: starter
@@ -27,6 +28,19 @@ services:
   #   branch: main
 
   # - type: postgresql
+=======
+  - type: web
+    name: frontend
+    plan: starter
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: "build"
+    envVars:
+      - key: REACT_APP_API_URL
+        value: "https://server-dev-quzm.onrender.com" 
+    branch: main
+
+  # - type: database
+>>>>>>> d77d92545e6fb6b5bf4c4dccf67106312f99ef24:render.yaml
   #   name: management
   #   plan: starter
   #   ipAllowList: 
