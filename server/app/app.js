@@ -19,12 +19,12 @@ app.use('/api', assignmentsRouter);
 app.use('/api', enrollmentsRouter);
 
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false, 
-    },
-  });
-  
+  user: process.env.USER,
+  host: process.env.HOST,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE,
+  port: process.env.PORT
+});
 
 // User Registration
 app.post('/register', async (req, res) => {

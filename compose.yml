@@ -7,7 +7,7 @@ services:
     image: ndeye650/frontend:latest
     platform: linux/amd64
     ports:
-      - "3000:3000"
+      - "80:5173"
     environment:
       - NODE_ENV=production
     depends_on:
@@ -20,7 +20,7 @@ services:
     image: ndeye650/server:latest
     platform: linux/amd64
     ports:
-      - "3080:3000"
+      - "3080:3080"
     environment:
       - NODE_ENV=production
       - DATABASE_URL=postgres://dbUser:dbPassword@db:5432/db
