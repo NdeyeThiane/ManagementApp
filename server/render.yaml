@@ -16,18 +16,18 @@ services:
     healthCheckPath: "/health" 
     branch: main 
 
-  - type: static
-    name: frontend
-    plan: starter
-    buildCommand: "npm install && npm run build"
-    staticPublishPath: "build"
-    envVars:
-      - key: REACT_APP_API_URL
-        value: "https://server-dev-quzm.onrender.com" 
-    branch: main
+  # - type: static
+  #   name: frontend
+  #   plan: starter
+  #   buildCommand: "npm install && npm run build"
+  #   staticPublishPath: "build"
+  #   envVars:
+  #     - key: REACT_APP_API_URL
+  #       value: "https://server-dev-quzm.onrender.com" 
+  #   branch: main
 
-  - type: postgresql
-    name: management
-    plan: starter
-    ipAllowList: 
-      - "0.0.0.0/0" 
+  # - type: postgresql
+  #   name: management
+  #   plan: starter
+  #   ipAllowList: 
+  #     - "0.0.0.0/0" 
