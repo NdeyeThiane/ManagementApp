@@ -16,7 +16,7 @@ services:
     healthCheckPath: "/health" 
     branch: main 
 
-  - type: static
+  - type: web
     name: frontend
     plan: starter
     buildCommand: "npm install && npm run build"
