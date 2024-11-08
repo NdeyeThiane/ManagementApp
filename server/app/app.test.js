@@ -11,6 +11,7 @@ beforeAll(async () => {
     `INSERT INTO users (username, email, password, role) VALUES 
     ('testuser', 'testuser@example.com', '${await bcrypt.hash('securepassword', 10)}', 'user') 
     ON CONFLICT (email) DO NOTHING`
+    
   );
   await pool.query(
     `INSERT INTO invitations (email, token, expires_at, used) VALUES 
