@@ -1,38 +1,42 @@
-// src/pages/Modules/ModuleList.jsx
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useParams, Link } from 'react-router-dom';
-import { fetchModules } from '../../app/features/modules/modulesSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchModules, deleteModule } from '../../app/features/modules/modulesSlice';
+import { Link, useParams } from 'react-router-dom';
 
 const ModuleList = () => {
-  const { courseId } = useParams();
   const dispatch = useDispatch();
-  const modules = useSelector((state) => state.modules.items);
+  const { courseid } = useParams(); 
+  const modules = useSelector((state) => state.modules.modules);
+  const loading = useSelector((state) => state.modules.loading);
+  const error = useSelector((state) => state.modules.error);
 
   useEffect(() => {
-    if (courseId) {
-      dispatch(fetchModules(courseId));
-    }
-  }, [dispatch, courseId]);
+    dispatch(fetchModules(courseid));
+  }, [dispatch, courseid]);
+
+  const handleDelete = (moduleId) => {
+    dispatch(deleteModule(moduleId));
+  };
+
+  if (loading === 'loading') return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold mb-4">Modules</h1>
-      <Link to={`/courses/${courseId}/modules/new`} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-        Create New Module
+      <h1>Modules for Course {courseid}</h1>
+      <Link to={`/courses/${courseid}/modules/new`} className="btn btn-primary">
+        Add Module
       </Link>
-      <ul className="mt-4 space-y-3">
+      <ul>
         {modules.map((module) => (
-          <li key={module.id} className="p-4 bg-white rounded shadow-md flex justify-between items-center">
-            <div>
-              <Link to={`/courses/${courseId}/modules/${module.id}`} className="text-indigo-600 hover:underline">
-                {module.title}
-              </Link>
-              <p className="text-gray-500">{module.description}</p>
-            </div>
-            <div>
-              <Link to={`/courses/${courseId}/modules/${module.id}/edit`} className="text-blue-500 mr-4 hover:underline">Edit</Link>
-            </div>
+          <li key={module.moduleid} className="module-item">
+            <h2>{module.modulename}</h2>
+            <Link to={`/modules/${module.moduleid}/edit`} className="btn btn-secondary">
+              Edit
+            </Link>
+            <button onClick={() => handleDelete(module.moduleid)} className="btn btn-danger">
+              Delete
+            </button>
           </li>
         ))}
       </ul>

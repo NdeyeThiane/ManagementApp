@@ -58,14 +58,17 @@ function UsersList() {
         </div>
       )}
 
-      <ul className="space-y-4">
+      <table className='border-2 w-[100%]'>
+          <tr className='boder-2 border-blue'>
+            <th className='w-[20%]'>Username</th>
+            <th className='w-[20%]'>Email</th>
+            <th className='w-[20%]'>Button</th>
+          </tr>
         {users.map((user) => (
-          <li key={user.userid} className="p-4 border rounded shadow-md flex justify-between items-center">
-            <div>
-              <p className="text-lg font-semibold">{user.username}</p>
-              <p className="text-sm text-gray-500">{user.email}</p> 
-            </div>
-            <div className="flex space-x-2">
+          <tr key={user.userid} className="rounded shadow-md flex justify-between items-center">
+              <td>{user.username}</td>
+              <td>{user.email}</td>
+              <td>
               <button
                 className="p-2 bg-yellow-400 text-white rounded"
                 onClick={() => setEditUser(user)}
@@ -73,10 +76,10 @@ function UsersList() {
                 Edit
               </button>
               <button className="p-2 bg-red-500 text-white rounded">Delete</button>
-            </div>
-          </li>
+              </td>
+              </tr>
         ))}
-      </ul>
+      </table >
     </div>
   );
 }

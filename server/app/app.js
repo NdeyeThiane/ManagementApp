@@ -19,40 +19,35 @@ app.use('/api', assignmentsRouter);
 app.use('/api', enrollmentsRouter);
 
 const pool = new Pool({
-  user: process.env.USER,
-  host: process.env.HOST,
-  password: process.env.PASSWORD,
-  database: process.env.DATABASE,
-  port: process.env.PORT
+  connectionString: process.env.DATABASE_URL,
 });
 
 // User Registration
 app.post('/register', async (req, res) => {
     const { username, email, password, token } = req.body;
     try {
-        const invitation = await pool.query(
-            'SELECT * FROM invitations WHERE token = $1 AND expires_at > NOW() AND used = FALSE',
-            [token]
-        );
-
-        if (invitation.rows.length === 0) {
-            return res.status(400).send('Invalid or expired invitation token.');
-        }
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const role = invitation.rows[0].role;
-        const newUser = await pool.query(
-            'INSERT INTO users (username, email, password, role) VALUES ($1, $2, $3, $4) RETURNING *',
-            [username, email, hashedPassword, role]
-        );
-
-        await pool.query('UPDATE invitations SET used = TRUE WHERE token = $1', [token]);
-        res.status(201).json(newUser.rows[0]);
+      const invitation = await pool.query(
+        'SELECT * FROM invitations WHERE token = $1 AND expires_at > NOW() AND used = FALSE',
+        [token]
+      );
+  
+      if (invitation.rows.length === 0) {
+        return res.status(400).send('Invalid or expired invitation token.');
+      }
+  
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const role = invitation.rows[0].role; 
+      const newUser = await pool.query(
+        'INSERT INTO users (username, email, password, role) VALUES ($1, $2, $3, $4) RETURNING *',
+        [username, email, hashedPassword, role]
+      );
+  
+      await pool.query('UPDATE invitations SET used = TRUE WHERE token = $1', [token]);
+      res.status(201).json(newUser.rows[0]);
     } catch (err) {
-        console.error("Error in POST /register:", err);
-        res.status(500).send("Something went wrong");
+      res.status(500).send("Something went wrong");
     }
-});
+  });
   
 
 // User Login
@@ -61,7 +56,7 @@ app.post('/login', async (req, res) => {
 
     try {
         if (!(email && password)) {
-            res.status(400).send("All input is required");
+            return res.status(400).send("All input is required");
         }
 
         const user = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
@@ -69,9 +64,7 @@ app.post('/login', async (req, res) => {
             const token = jwt.sign(
                 { user_id: user.rows[0].userid, email },
                 process.env.TOKEN_KEY,
-                {
-                    expiresIn: "2h",
-                }
+                { expiresIn: "2h" }
             );
             user.rows[0].token = token;
             res.status(200).json(user.rows[0]);
@@ -108,7 +101,7 @@ app.post('/reset-password', async (req, res) => {
             { expiresIn: '1h' }
         );
 
-        const link = `${process.env.FRONTEND_URL}?token=${token}`;
+        const link = `http://yourfrontend/reset-password.html?token=${token}`;
         let mailOptions = {
             from: process.env.EMAIL,
             to: email,
@@ -158,40 +151,33 @@ app.post('/generate-invitation', async (req, res) => {
       const expires_at = new Date();
       expires_at.setHours(expires_at.getHours() + 48); 
   
-      
-      console.log('Inserting invitation with:', { email, token, expires_at, role });
-  
       await pool.query(
         'INSERT INTO invitations (email, token, expires_at, role) VALUES ($1, $2, $3, $4)',
         [email, token, expires_at, role]
       );
   
       const link = `${process.env.FRONTEND_URL}/register?token=${token}`;
-      const mailOptions = {
+      let mailOptions = {
         from: process.env.EMAIL,
         to: email,
         subject: 'You are invited to register',
-        html: `<p>Welcome to the cohort! Please click <a href="${link}">here</a> to register.</p>`
+        html: `<p>Welcome the cohort please click <a href="${link}">here</a> to register.</p>`
       };
   
-      
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-          console.error('Error sending email:', error); 
           return res.status(500).send('Error sending email');
         } else {
           res.status(200).send('Invitation sent!');
         }
       });
     } catch (error) {
-      console.error('Error in /generate-invitation endpoint:', error); 
       res.status(500).send('Something went wrong');
     }
   });
   
-  
 
-app.get('/api/users', async (req, res) => {
+  app.get('/api/users', async (req, res) => {
     try {
       const { rows } = await pool.query('SELECT userid, username, email, role, createdat FROM users');
       res.json(rows);
@@ -242,7 +228,7 @@ app.get('/api/users', async (req, res) => {
       res.status(500).json({ message: 'Internal Server Error' });
     }
   });
-  
+
 
 app.get('/courses', async (req, res) => {
     try {

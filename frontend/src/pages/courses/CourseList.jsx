@@ -5,7 +5,7 @@ import { fetchCourses, deleteCourse } from '../../app/features/course/courseSlic
 import { Link } from 'react-router-dom';
 
 const CourseList = () => {
-  const courses = useSelector((state) => state.courses.courses );
+  const courses = useSelector((state) => state.courses.courses);
   const dispatch = useDispatch();
   console.log(courses)
   
@@ -26,17 +26,17 @@ const CourseList = () => {
       </Link>
       <ul className="mt-4 space-y-3">
         {courses.map((course) => (
-          <li key={course.id} className="p-4 bg-white rounded shadow-md flex justify-between items-center">
+          <li key={course.courseid} className="p-4 bg-white rounded shadow-md flex justify-between items-center">
             <div>
-              <Link to={`/courses/${course.id}`} className="text-indigo-600 hover:underline">
-                {course.title}
+              <Link to={`/courses/${course.courseid}`} className="text-indigo-600 hover:underline">
+                {course.coursename}
               </Link>
               <p className="text-gray-500">{course.description}</p>
             </div>
             <div>
-              <Link to={`/courses/${course.id}/edit`} className="text-blue-500 mr-4 hover:underline">Edit</Link>
+              <Link to={`/courses/${course.courseid}/edit`} className="text-blue-500 mr-4 hover:underline">Edit</Link>
               <button
-                onClick={() => handleDelete(course.id)}
+                onClick={() => handleDelete(course.courseid)}
                 className="text-red-500 hover:underline"
               >
                 Delete

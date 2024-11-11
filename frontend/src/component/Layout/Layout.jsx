@@ -17,7 +17,7 @@ const Layout = () => {
 
       {showSecondarySidebar && <SecondarySidebar />} 
 
-      <div className={`flex-1 flex flex-col ${showSecondarySidebar ? 'pl-64' : ''}`}>
+      <div className={`flex-1 flex flex-col ${showSecondarySidebar ? 'pl-4' : ''}`}>
         <TopNavbar />
 
         <main className="p-6 bg-gray-100 flex-1 overflow-y-auto">

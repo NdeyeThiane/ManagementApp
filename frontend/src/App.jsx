@@ -8,7 +8,9 @@ import Dashboard from './pages/Dashboard';
 import Registration from './pages/Registration';
 import Login from './pages/Login';
 import ProtectedRoute from './pages/PrivateRoute';
-import UserForm from './pages/users/UserForm';
+import ModulesList from './pages/modules/ModuleList'; 
+import ModuleForm from './pages/modules/ModuleForm'; 
+
 
 function App() {
   return (
@@ -21,15 +23,19 @@ function App() {
           <Route path="courses/new" element={<ProtectedRoute><CourseForm /></ProtectedRoute>} />
           
           
+          <Route path="courses/:courseId/modules" element={<ProtectedRoute><ModulesList /></ProtectedRoute>} />
+          <Route path="courses/:courseId/modules/new" element={<ProtectedRoute><ModuleForm /></ProtectedRoute>} />
+          <Route path="modules/:moduleId/edit" element={<ProtectedRoute><ModuleForm /></ProtectedRoute>} />
+
           <Route path="users" element={<ProtectedRoute><UserList /></ProtectedRoute>} />
         </Route>
 
-        
         <Route path="register" element={<Registration />} />
         <Route path="login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
 }
+
 
 export default App;

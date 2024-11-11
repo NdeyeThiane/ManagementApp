@@ -1,13 +1,20 @@
 import React from 'react';
+import { FaFileAlt, FaComments, FaScroll } from "react-icons/fa";
 
 const SecondarySidebar = () => {
   return (
-    <div className="w-64 bg-gray-200 p-4">
-      <h3 className="text-lg font-semibold mb-4">Secondary Navigation</h3>
+    <div className="w-40 bg-pink-300 p-4 pt-10 rounded-lg">
+      <h3 className="text-lg font-semibold mb-4">course</h3>
       <ul>
-        <li><a href="/courses/1/modules">Modules</a></li>
-        <li><a href="/courses/1/assignments">Assignments</a></li>
-        <li><a href="/courses/1/discussions">Discussions</a></li>
+        <li className='p-2'><a href="/courses/1/modules">
+        <FaScroll className='size-8 m-2' /> 
+        Modules</a></li>
+        <li className='p-2'><a href="/courses/1/assignments">
+        <FaFileAlt className='size-8 m-2'/>
+        Assignments</a></li>
+        <li className='p-2'><a href="/courses/1/discussions">
+        <FaComments className='size-8 m-2' />
+        Discussions</a></li>
       </ul>
     </div>
   );
@@ -17,14 +24,3 @@ export default SecondarySidebar;
 
 
 
-{/* <Route path="/courses/:id" element={<DetailpagesLayout />}>
-<Route path="courses/:id" element={<CourseDetail />} />
-<Route path="courses/:id/edit" element={<CourseForm />} />
-<Route path="courses/:id/modules" element={<ModuleList />} />
-<Route path="courses/:id/modules/new" element={<ModuleForm />} />
-<Route path="courses/:id/modules/:moduleId" element={<ModuleDetail />} />
-<Route path="courses/:id/modules/:moduleId/edit" element={<ModuleForm />} />
-<Route path="courses/:id/modules/:moduleId/assignments" element={<AssignmentList />} />
-<Route path="courses/:id/modules/:moduleId/assignments/new" element={<AssignmentForm />} />
-<Route path="courses/:id/modules/:moduleId/assignments/:assignmentId" element={<AssignmentDetail />} />
-<Route path="courses/:id/modules/:moduleId/assignments/:assignmentId/edit" element={<AssignmentForm />} /> */}

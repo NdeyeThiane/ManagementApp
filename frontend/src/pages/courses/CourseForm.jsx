@@ -1,39 +1,38 @@
-// src/pages/Courses/CourseForm.jsx
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { addCourse, updateCourse, fetchCourses} from '../../app/features/course/courseSlice';
+import { addCourse, updateCourse, fetchCourses } from '../../app/features/course/courseSlice';
 
 const CourseForm = () => {
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState(' ');
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { id } = useParams();
-  const isEditMode = !!id;
+  const { courseid} = useParams();
+  const isEditMode = !!courseid;
   const course = useSelector((state) => state.courses.selectedCourse);
 
   useEffect(() => {
     if (isEditMode) {
-      dispatch(fetchCourse(id));
+      dispatch(fetchCourses(courseid));
     }
-  }, [dispatch, id, isEditMode]);
+  }, [dispatch, courseid, isEditMode]);
 
   useEffect(() => {
     if (isEditMode && course) {
-      setTitle(course.title);
+      setTitle(course.coursename);
       setDescription(course.description);
     }
   }, [isEditMode, course]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isEditMode) {
-      dispatch(updateCourse({ id, title, description }));
-    } else {
-      dispatch(addCourse({ title, description }));
-    }
-    navigate('/courses');
+    const coursename = title;
+    const description1 = description; 
+    console.log("Submitting course:", { coursename, description1 }); 
+      dispatch(addCourse({ coursename, description }));
+    
+    navigate('/courses'); 
   };
 
   return (

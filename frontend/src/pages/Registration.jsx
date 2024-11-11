@@ -25,7 +25,7 @@ const Registration = () => {
     }
 
     try {
-      const response = await axios.post('https://server-dev-quzm.onrender.com/register', {
+      const response = await axios.post('http://localhost:3080/register', {
         username,
         email,
         password,
