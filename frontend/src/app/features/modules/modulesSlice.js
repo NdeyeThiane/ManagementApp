@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios from '../../routes';
 
 
 export const fetchModules = createAsyncThunk('modules/fetchModules', async (courseid) => {

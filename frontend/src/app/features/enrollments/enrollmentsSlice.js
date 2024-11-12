@@ -1,7 +1,7 @@
 
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios from '../../routes';
 
 
 const fetchEnrollments = createAsyncThunk('enrollments/fetchEnrollments', async (courseId) => {
