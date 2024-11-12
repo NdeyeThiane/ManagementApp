@@ -279,34 +279,59 @@ ALTER TABLE ONLY public.coursecontent ALTER COLUMN contentid SET DEFAULT nextval
 ALTER TABLE ONLY public.courses ALTER COLUMN courseid SET DEFAULT nextval('public.courses_courseid_seq'::regclass);
 
 
+--
+-- Name: enrollments enrollmentid; Type: DEFAULT; Schema: public; Ownepostgres
+--
 
 ALTER TABLE ONLY public.enrollments ALTER COLUMN enrollmentid SET DEFAULT nextval('public.enrollments_enrollmentid_seq'::regclass);
 
 
+--
+-- Name: invitations invitationid; Type: DEFAULT; Schema: public; Ownepostgres
+--
 
 ALTER TABLE ONLY public.invitations ALTER COLUMN invitationid SET DEFAULT nextval('public.invitations_invitationid_seq'::regclass);
 
 
+--
+-- Name: modules moduleid; Type: DEFAULT; Schema: public; Ownepostgres
+--
 
 ALTER TABLE ONLY public.modules ALTER COLUMN moduleid SET DEFAULT nextval('public.modules_moduleid_seq'::regclass);
 
 
+--
+-- Name: quizzes quizid; Type: DEFAULT; Schema: public; Ownepostgres
+--
 
 ALTER TABLE ONLY public.quizzes ALTER COLUMN quizid SET DEFAULT nextval('public.quizzes_quizid_seq'::regclass);
 
 
+--
+-- Name: results resultid; Type: DEFAULT; Schema: public; Ownepostgres
+--
 
 ALTER TABLE ONLY public.results ALTER COLUMN resultid SET DEFAULT nextval('public.results_resultid_seq'::regclass);
 
 
+--
+-- Name: users userid; Type: DEFAULT; Schema: public; Ownepostgres
+--
 
 ALTER TABLE ONLY public.users ALTER COLUMN userid SET DEFAULT nextval('public.users_userid_seq'::regclass);
 
+
+--
+-- Data for Name: coursecontent; Type: TABLE DATA; Schema: public; Ownepostgres
+--
 
 COPY public.coursecontent (contentid, moduleid, contenttype, contenttitle, contenturl, createdat) FROM stdin;
 \.
 
 
+--
+-- Data for Name: courses; Type: TABLE DATA; Schema: public; Ownepostgres
+--
 
 COPY public.courses (courseid, coursename, description, createdat) FROM stdin;
 3	Intro to Javascript	lets learn javascript	2024-11-08 16:55:58.785794
@@ -314,11 +339,17 @@ COPY public.courses (courseid, coursename, description, createdat) FROM stdin;
 \.
 
 
+--
+-- Data for Name: enrollments; Type: TABLE DATA; Schema: public; Ownepostgres
+--
 
 COPY public.enrollments (enrollmentid, userid, courseid, enrollmentdate) FROM stdin;
 \.
 
 
+--
+-- Data for Name: invitations; Type: TABLE DATA; Schema: public; Ownepostgres
+--
 
 COPY public.invitations (invitationid, email, token, expires_at, used, role) FROM stdin;
 1	ndeyethiane15@gmail.com	23f499d177349796446c2700293ce23527f19ad0	2024-11-07 13:45:40.714	f	\N
@@ -330,132 +361,224 @@ COPY public.invitations (invitationid, email, token, expires_at, used, role) FRO
 \.
 
 
+--
+-- Data for Name: modules; Type: TABLE DATA; Schema: public; Ownepostgres
+--
+
 COPY public.modules (moduleid, courseid, modulename, createdat) FROM stdin;
 \.
 
 
+--
+-- Data for Name: quizzes; Type: TABLE DATA; Schema: public; Ownepostgres
+--
 
 COPY public.quizzes (quizid, moduleid, quizname, description, totalmarks, createdat) FROM stdin;
 \.
 
 
+--
+-- Data for Name: results; Type: TABLE DATA; Schema: public; Ownepostgres
+--
 
 COPY public.results (resultid, userid, quizid, score, completiondate) FROM stdin;
 \.
 
 
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Ownepostgres
+--
 
 COPY public.users (userid, username, email, password, role, createdat) FROM stdin;
 1	ndeye	ndeyet2004@gmail.com	$2b$10$hSRuKBYdBIBRIIEArdytTONrhgvIpG4DLoUAlqnLpjzWMH5MulTNC	admin	2024-11-06 14:55:17.561922
 \.
 
 
+--
+-- Name: coursecontent_contentid_seq; Type: SEQUENCE SET; Schema: public; Ownepostgres
+--
 
 SELECT pg_catalog.setval('public.coursecontent_contentid_seq', 1, false);
 
 
+--
+-- Name: courses_courseid_seq; Type: SEQUENCE SET; Schema: public; Ownepostgres
+--
 
 SELECT pg_catalog.setval('public.courses_courseid_seq', 5, true);
 
 
+--
+-- Name: enrollments_enrollmentid_seq; Type: SEQUENCE SET; Schema: public; Ownepostgres
+--
 
 SELECT pg_catalog.setval('public.enrollments_enrollmentid_seq', 1, false);
 
 
+--
+-- Name: invitations_invitationid_seq; Type: SEQUENCE SET; Schema: public; Ownepostgres
+--
 
 SELECT pg_catalog.setval('public.invitations_invitationid_seq', 6, true);
 
 
+--
+-- Name: modules_moduleid_seq; Type: SEQUENCE SET; Schema: public; Ownepostgres
+--
 
 SELECT pg_catalog.setval('public.modules_moduleid_seq', 2, true);
 
 
+--
+-- Name: quizzes_quizid_seq; Type: SEQUENCE SET; Schema: public; Ownepostgres
+--
 
 SELECT pg_catalog.setval('public.quizzes_quizid_seq', 1, false);
 
 
+--
+-- Name: results_resultid_seq; Type: SEQUENCE SET; Schema: public; Ownepostgres
+--
 
 SELECT pg_catalog.setval('public.results_resultid_seq', 1, false);
 
 
+--
+-- Name: users_userid_seq; Type: SEQUENCE SET; Schema: public; Ownepostgres
+--
 
 SELECT pg_catalog.setval('public.users_userid_seq', 1, true);
 
 
+--
+-- Name: coursecontent coursecontent_pkey; Type: CONSTRAINT; Schema: public; Ownepostgres
+--
 
 ALTER TABLE ONLY public.coursecontent
     ADD CONSTRAINT coursecontent_pkey PRIMARY KEY (contentid);
 
 
+--
+-- Name: courses courses_pkey; Type: CONSTRAINT; Schema: public; Ownepostgres
+--
 
 ALTER TABLE ONLY public.courses
     ADD CONSTRAINT courses_pkey PRIMARY KEY (courseid);
 
 
+--
+-- Name: enrollments enrollments_pkey; Type: CONSTRAINT; Schema: public; Ownepostgres
+--
 
 ALTER TABLE ONLY public.enrollments
     ADD CONSTRAINT enrollments_pkey PRIMARY KEY (enrollmentid);
 
 
+--
+-- Name: invitations invitations_pkey; Type: CONSTRAINT; Schema: public; Ownepostgres
+--
 
 ALTER TABLE ONLY public.invitations
     ADD CONSTRAINT invitations_pkey PRIMARY KEY (invitationid);
 
 
+--
+-- Name: modules modules_pkey; Type: CONSTRAINT; Schema: public; Ownepostgres
+--
 
 ALTER TABLE ONLY public.modules
     ADD CONSTRAINT modules_pkey PRIMARY KEY (moduleid);
 
 
+--
+-- Name: quizzes quizzes_pkey; Type: CONSTRAINT; Schema: public; Ownepostgres
+--
 
 ALTER TABLE ONLY public.quizzes
     ADD CONSTRAINT quizzes_pkey PRIMARY KEY (quizid);
 
 
+--
+-- Name: results results_pkey; Type: CONSTRAINT; Schema: public; Ownepostgres
+--
 
 ALTER TABLE ONLY public.results
     ADD CONSTRAINT results_pkey PRIMARY KEY (resultid);
 
 
+--
+-- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Ownepostgres
+--
+
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_email_key UNIQUE (email);
 
 
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Ownepostgres
+--
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (userid);
 
 
+--
+-- Name: coursecontent coursecontent_moduleid_fkey; Type: FK CONSTRAINT; Schema: public; Ownepostgres
+--
+
 ALTER TABLE ONLY public.coursecontent
     ADD CONSTRAINT coursecontent_moduleid_fkey FOREIGN KEY (moduleid) REFERENCES public.modules(moduleid);
 
 
+--
+-- Name: enrollments enrollments_courseid_fkey; Type: FK CONSTRAINT; Schema: public; Ownepostgres
+--
 
 ALTER TABLE ONLY public.enrollments
     ADD CONSTRAINT enrollments_courseid_fkey FOREIGN KEY (courseid) REFERENCES public.courses(courseid);
 
 
+--
+-- Name: enrollments enrollments_userid_fkey; Type: FK CONSTRAINT; Schema: public; Ownepostgres
+--
 
 ALTER TABLE ONLY public.enrollments
     ADD CONSTRAINT enrollments_userid_fkey FOREIGN KEY (userid) REFERENCES public.users(userid);
 
 
+--
+-- Name: modules modules_courseid_fkey; Type: FK CONSTRAINT; Schema: public; Ownepostgres
+--
 
 ALTER TABLE ONLY public.modules
     ADD CONSTRAINT modules_courseid_fkey FOREIGN KEY (courseid) REFERENCES public.courses(courseid);
 
 
+--
+-- Name: quizzes quizzes_moduleid_fkey; Type: FK CONSTRAINT; Schema: public; Ownepostgres
+--
 
 ALTER TABLE ONLY public.quizzes
     ADD CONSTRAINT quizzes_moduleid_fkey FOREIGN KEY (moduleid) REFERENCES public.modules(moduleid);
 
 
+--
+-- Name: results results_quizid_fkey; Type: FK CONSTRAINT; Schema: public; Ownepostgres
+--
+
 ALTER TABLE ONLY public.results
     ADD CONSTRAINT results_quizid_fkey FOREIGN KEY (quizid) REFERENCES public.quizzes(quizid);
 
+
+--
+-- Name: results results_userid_fkey; Type: FK CONSTRAINT; Schema: public; Ownepostgres
+--
 
 ALTER TABLE ONLY public.results
     ADD CONSTRAINT results_userid_fkey FOREIGN KEY (userid) REFERENCES public.users(userid);
 
 
+--
+-- PostgreSQL database dump complete
+--
 

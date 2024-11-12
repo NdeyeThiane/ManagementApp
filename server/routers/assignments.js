@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../db');
 
-router.get('/modules/:moduleId/assignments', async (req, res) => {
+router.get('/api/modules/:moduleId/assignments', async (req, res) => {
   const { moduleId } = req.params;
   try {
     const result = await pool.query('SELECT * FROM assignments WHERE moduleid = $1', [moduleId]);
@@ -13,7 +13,7 @@ router.get('/modules/:moduleId/assignments', async (req, res) => {
   }
 });
 
-router.post('/modules/:moduleId/assignments', async (req, res) => {
+router.post('/api/modules/:moduleId/assignments', async (req, res) => {
   const { moduleId } = req.params;
   const { title, description, dueDate } = req.body;
   try {
@@ -28,7 +28,7 @@ router.post('/modules/:moduleId/assignments', async (req, res) => {
 });
 
 
-router.put('/assignments/:assignmentId', async (req, res) => {
+router.put('/api/assignments/:assignmentId', async (req, res) => {
   const { assignmentId } = req.params;
   const { title, description, dueDate } = req.body;
   try {
@@ -45,7 +45,7 @@ router.put('/assignments/:assignmentId', async (req, res) => {
   }
 });
 
-router.delete('/assignments/:assignmentId', async (req, res) => {
+router.delete('/api/assignments/:assignmentId', async (req, res) => {
   const { assignmentId } = req.params;
   try {
     const result = await pool.query('DELETE FROM assignments WHERE id = $1 RETURNING *', [assignmentId]);

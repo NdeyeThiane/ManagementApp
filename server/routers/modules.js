@@ -3,7 +3,7 @@ const pool = require('../db');
 const modulesRouter = express.Router();
 
 // Get all modules for a specific course
-modulesRouter.get('/courses/:courseid/modules', async (req, res) => {
+modulesRouter.get('/api/courses/:courseid/modules', async (req, res) => {
     const { courseid } = req.params;
     try {
         const { rows } = await pool.query('SELECT * FROM modules WHERE courseid = $1', [courseid]);
@@ -15,7 +15,7 @@ modulesRouter.get('/courses/:courseid/modules', async (req, res) => {
 });
 
 // Get details of a specific module
-modulesRouter.get('/modules/:moduleid', async (req, res) => {
+modulesRouter.get('/api/modules/:moduleid', async (req, res) => {
     const { moduleid } = req.params;
     try {
         const { rows } = await pool.query('SELECT * FROM modules WHERE moduleid = $1', [moduleid]);
@@ -30,7 +30,7 @@ modulesRouter.get('/modules/:moduleid', async (req, res) => {
 });
 
 // Add a module to a specific course
-modulesRouter.post('/courses/:courseid/modules', async (req, res) => {
+modulesRouter.post('/api/courses/:courseid/modules', async (req, res) => {
     const { courseid } = req.params;
     const { modulename } = req.body;
 
@@ -57,7 +57,7 @@ modulesRouter.post('/courses/:courseid/modules', async (req, res) => {
 
 
 // Update a module
-modulesRouter.put('/modules/:moduleid', async (req, res) => {
+modulesRouter.put('/api/modules/:moduleid', async (req, res) => {
     const { moduleid } = req.params;
     const { modulename } = req.body;
 
@@ -81,7 +81,7 @@ modulesRouter.put('/modules/:moduleid', async (req, res) => {
 });
 
 // Delete a module
-modulesRouter.delete('/modules/:moduleid', async (req, res) => {
+modulesRouter.delete('/api/modules/:moduleid', async (req, res) => {
     const { moduleid } = req.params;
     try {
         const { rowCount } = await pool.query('DELETE FROM modules WHERE moduleid = $1', [moduleid]);

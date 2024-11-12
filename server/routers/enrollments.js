@@ -4,7 +4,7 @@ const router = express.Router();
 const pool = require('../db');
 
 
-router.get('/courses/:courseId/enrollments', async (req, res) => {
+router.get('/api/courses/:courseId/enrollments', async (req, res) => {
   const { courseId } = req.params;
   try {
     const result = await pool.query(`
@@ -19,7 +19,7 @@ router.get('/courses/:courseId/enrollments', async (req, res) => {
 });
 
 
-router.post('/courses/:courseId/enrollments', async (req, res) => {
+router.post('/api/courses/:courseId/enrollments', async (req, res) => {
   const { courseId } = req.params;
   const { userId } = req.body;
   try {
@@ -34,7 +34,7 @@ router.post('/courses/:courseId/enrollments', async (req, res) => {
 });
 
 
-router.delete('/courses/:courseId/enrollments/:userId', async (req, res) => {
+router.delete('/api/courses/:courseId/enrollments/:userId', async (req, res) => {
   const { courseId, userId } = req.params;
   try {
     const result = await pool.query(

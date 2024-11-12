@@ -29,9 +29,9 @@ afterAll(async () => {
 });
 
 describe('Users API', () => {
-  describe('POST /register', () => {
+  describe('POST /api/register', () => {
     it('should register a new user with a valid invitation token', async () => {
-        const res = await request(app).post('/register').send({
+        const res = await request(app).post('/api/register').send({
             username: 'testuser',
             email: 'testuser@example.com',
             password: 'securepassword',
@@ -43,7 +43,7 @@ describe('Users API', () => {
     });
 
     it('should not register a user with an invalid or expired invitation token', async () => {
-      const res = await request(app).post('/register').send({
+      const res = await request(app).post('/api/register').send({
         username: 'invaliduser',
         email: 'invaliduser@example.com',
         password: 'securepassword',
@@ -62,7 +62,7 @@ describe('Users API', () => {
         ON CONFLICT (email) DO NOTHING`
       );
 
-      const res = await request(app).post('/login').send({
+      const res = await request(app).post('/api/login').send({
         email: 'testuser@example.com',
         password: 'securepassword'
       });
@@ -71,7 +71,7 @@ describe('Users API', () => {
     });
 
     it('should not log in a user with invalid credentials', async () => {
-      const res = await request(app).post('/login').send({
+      const res = await request(app).post('/api/login').send({
         email: 'testuser@example.com',
         password: 'wrongpassword'
       });
@@ -84,7 +84,7 @@ describe('Users API', () => {
     it('should send a password reset link for an existing user', async () => {
       jest.setTimeout(10000); // Extend timeout for this test
 
-      const res = await request(app).post('/reset-password').send({
+      const res = await request(app).post('/api/reset-password').send({
         email: 'testuser@example.com'
       });
       expect(res.statusCode).toEqual(200);
@@ -93,7 +93,7 @@ describe('Users API', () => {
     });
 
     it('should return 404 for non-existent email', async () => {
-      const res = await request(app).post('/reset-password').send({
+      const res = await request(app).post('/api/reset-password').send({
         email: 'nonexistent@example.com'
       });
       expect(res.statusCode).toEqual(404);
@@ -107,7 +107,7 @@ describe('Users API', () => {
         expiresIn: '1h'
       });
 
-      const res = await request(app).post('/reset-password/confirm').send({
+      const res = await request(app).post('/api/reset-password/confirm').send({
         token,
         newPassword: 'newpassword'
       });
@@ -116,7 +116,7 @@ describe('Users API', () => {
     });
 
     it('should return 401 for an invalid or expired token', async () => {
-      const res = await request(app).post('/reset-password/confirm').send({
+      const res = await request(app).post('/api/reset-password/confirm').send({
         token: 'invalid-token',
         newPassword: 'newpassword'
       });
@@ -142,7 +142,7 @@ describe('Users API', () => {
         ON CONFLICT (email) DO NOTHING`
       );
 
-      const res = await request(app).post('/generate-invitation').send({
+      const res = await request(app).post('/api/generate-invitation').send({
         email: 'existinguser@example.com'
       });
       expect(res.statusCode).toEqual(409);
