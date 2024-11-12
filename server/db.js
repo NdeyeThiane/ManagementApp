@@ -1,15 +1,13 @@
+const { text } = require('body-parser');
+const { query } = require('express');
 const { Pool } = require('pg');
-require('dotenv/config');
+const { param } = require('./routers/modules');
 
 
-
-const pool = new Pool({
-    user: process.env.USER,
-    host: process.env.HOST,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE,
-    port: process.env.PORT
-})
+const pool = new Pool();
 
 
-module.exports= pool;
+module.exports= {
+    query: (text, params) => pool.query(text, params),
+    
+};

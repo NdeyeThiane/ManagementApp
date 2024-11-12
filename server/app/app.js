@@ -5,7 +5,7 @@ require('dotenv').config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
-const { Pool } = require('pg');
+const pool = require('../db')
 const crypto = require('crypto');
 const modulesRouter = require('../routers/modules');
 const assignmentsRouter = require('../routers/assignments');
@@ -18,13 +18,15 @@ app.use('/api', modulesRouter);
 app.use('/api', assignmentsRouter);
 app.use('/api', enrollmentsRouter);
 
-// const pool = new Pool({
+
+  // {
 //   user: process.env.USER,
 //   host: process.env.HOST,
 //   password: process.env.PASSWORD,
 //   database: process.env.DATABASE,
 //   port: process.env.PORT
 // });
+
 
 // User Registration
 app.post('/api/register', async (req, res) => {
