@@ -19,11 +19,15 @@ app.use('/api', assignmentsRouter);
 app.use('/api', enrollmentsRouter);
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  user: process.env.USER,
+  host: process.env.HOST,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE,
+  port: process.env.PORT
 });
 
 // User Registration
-app.post('/register', async (req, res) => {
+app.post('/api/register', async (req, res) => {
     const { username, email, password, token } = req.body;
     try {
       const invitation = await pool.query(
@@ -87,7 +91,7 @@ const transporter = nodemailer.createTransport({
 });
 
 
-app.post('/reset-password', async (req, res) => {
+app.post('/api/reset-password', async (req, res) => {
     const { email } = req.body;
     try {
         const user = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
@@ -101,7 +105,7 @@ app.post('/reset-password', async (req, res) => {
             { expiresIn: '1h' }
         );
 
-        const link = `http://yourfrontend/reset-password.html?token=${token}`;
+        const link = `${process.env.FRONTEND_URL}?token=${token}`;
         let mailOptions = {
             from: process.env.EMAIL,
             to: email,
@@ -124,7 +128,7 @@ app.post('/reset-password', async (req, res) => {
 });
 
 
-app.post('/reset-password/confirm', async (req, res) => {
+app.post('/api/reset-password/confirm', async (req, res) => {
     const { token, newPassword } = req.body;
 
     try {
@@ -144,7 +148,7 @@ app.post('/reset-password/confirm', async (req, res) => {
 });
 
 
-app.post('/generate-invitation', async (req, res) => {
+app.post('/api/generate-invitation', async (req, res) => {
     const { email, role } = req.body;
     try {
       const token = crypto.randomBytes(20).toString('hex');
@@ -230,7 +234,7 @@ app.post('/generate-invitation', async (req, res) => {
   });
 
 
-app.get('/courses', async (req, res) => {
+app.get('/api/courses', async (req, res) => {
     try {
         const { rows } = await pool.query('SELECT * FROM courses');
         res.json(rows);
@@ -240,7 +244,7 @@ app.get('/courses', async (req, res) => {
     }
 });
 
-app.post('/courses', async (req, res) => {
+app.post('/api/courses', async (req, res) => {
     const { coursename, description } = req.body;
     try {
         const { rows } = await pool.query(
@@ -254,7 +258,7 @@ app.post('/courses', async (req, res) => {
     }
 });
 
-app.get('/courses/:id', async (req, res) => {
+app.get('/api/courses/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const { rows } = await pool.query('SELECT * FROM courses WHERE courseid = $1', [id]);
@@ -268,7 +272,7 @@ app.get('/courses/:id', async (req, res) => {
     }
 });
 
-app.put('/courses/:id', async (req, res) => {
+app.put('/api/courses/:id', async (req, res) => {
     const { id } = req.params;
     const { coursename, description } = req.body;
     try {
@@ -286,7 +290,7 @@ app.put('/courses/:id', async (req, res) => {
     }
 });
 
-app.delete('/courses/:id', async (req, res) => {
+app.delete('/api/courses/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const { rowCount } = await pool.query('DELETE FROM courses WHERE courseid = $1', [id]);

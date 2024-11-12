@@ -1,19 +1,20 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-  const response = await axios.get('http://localhost:3080/api/users');
+  const response = await axios.get('/users');
   return response.data;
 });
 
 export const sendInvitation = createAsyncThunk('users/sendInvitation', async ({ email, role }) => {
-  const response = await axios.post('http://localhost:3080/generate-invitation', { email, role });
+  const response = await axios.post('/generate-invitation', { email, role });
   return response.data;
 });
 
 
 export const updateUser = createAsyncThunk('users/updateUser', async ({ userId, ...userData }) => {
-  const response = await axios.put(`http://localhost:3080/api/users/${userId}`, userData);
+  const response = await axios.put(`/users/${userId}`, userData);
   return response.data;
 });
 

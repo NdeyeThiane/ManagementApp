@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "proxy": "https://camp-tonic-a.org/api",
   "scripts": {
     "build": "vite build",
     "start": "vite",

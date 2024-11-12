@@ -3,13 +3,13 @@ import axios from 'axios';
 
 
 export const fetchCourses = createAsyncThunk('courses/fetchCourses', async () => {
-  const response = await axios.get('http://localhost:3080/courses');
+  const response = await axios.get('/api/courses');
   return response.data;
 });
 
 
 export const addCourse = createAsyncThunk('courses/addCourse', async (courseData) => {
-  const response = await axios.post('http://localhost:3080/courses', {
+  const response = await axios.post('/api/courses', {
       coursename: courseData.coursename,
       description: courseData.description
   });
@@ -17,13 +17,13 @@ export const addCourse = createAsyncThunk('courses/addCourse', async (courseData
 });
 
 export const updateCourse = createAsyncThunk('courses/updateCourse', async ({ courseid, updatedData }) => {
-  const response = await axios.put(`http://localhost:3080/courses/${courseid}`, updatedData);
+  const response = await axios.put(`/api/courses/${courseid}`, updatedData);
   return response.data;
 });
 
 
 export const deleteCourse = createAsyncThunk('courses/deleteCourse', async (courseid) => {
-  await axios.delete(`http://localhost:3080/courses/${courseid}`);
+  await axios.delete(`/api/courses/${courseid}`);
   return courseid;
 });
 

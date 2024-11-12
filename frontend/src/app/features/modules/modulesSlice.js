@@ -3,31 +3,31 @@ import axios from 'axios';
 
 
 export const fetchModules = createAsyncThunk('modules/fetchModules', async (courseid) => {
-  const response = await axios.get(`http://localhost:3080/courses/${courseid}/modules`);
+  const response = await axios.get(`/api/courses/${courseid}/modules`);
   return response.data;
 });
 
 
 export const fetchModuleById = createAsyncThunk('modules/fetchModuleById', async (moduleid) => {
-  const response = await axios.get(`http://localhost:3080/modules/${moduleid}`);
+  const response = await axios.get(`/api/modules/${moduleid}`);
   return response.data;
 });
 
 
 export const addModule = createAsyncThunk('modules/addModule', async ({ courseid, modulename }) => {
-  const response = await axios.post(`http://localhost:3080/courses/${courseid}/modules`, { modulename });
+  const response = await axios.post(`/api/courses/${courseid}/modules`, { modulename });
   return response.data;
 });
 
 
 export const updateModule = createAsyncThunk('modules/updateModule', async ({ moduleid, modulename }) => {
-  const response = await axios.put(`http://localhost:3080/modules/${moduleid}`, { modulename });
+  const response = await axios.put(`/api/modules/${moduleid}`, { modulename });
   return response.data;
 });
 
 
 export const deleteModule = createAsyncThunk('modules/deleteModule', async (moduleid) => {
-  await axios.delete(`http://localhost:3080/modules/${moduleid}`);
+  await axios.delete(`/api/modules/${moduleid}`);
   return moduleId;
 });
 

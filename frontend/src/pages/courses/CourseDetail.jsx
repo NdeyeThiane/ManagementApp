@@ -17,8 +17,7 @@ const CourseDetail = () => {
   const handleDelete = () => {
     dispatch(deleteCourse(id));
     navigate('/courses');
-  };
-
+  }
   if (course) {
     return <p>Loading...</p>;
   }

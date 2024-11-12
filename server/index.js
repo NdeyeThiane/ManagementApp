@@ -1,6 +1,6 @@
 const { app } = require('./app/app');
 const pool = require('./app/app');
-const port = 3080;
+const port = process.env.PORT || 3080;
 
 
 app.listen(port, () => {
